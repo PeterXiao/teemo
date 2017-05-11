@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>tasty.mushrooms</groupId>
+		<artifactId>teemo</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>teemo-dataprovider</artifactId>
+	<name>teemo-dataprovider</name>
+
+	<properties>
+		<teemo.version>1.0.0</teemo.version>
+		<testng.version>6.11</testng.version>
+		<poi.version>3.14</poi.version>
+		<dbcp.version>1.4</dbcp.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${dbcp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>tasty.mushrooms</groupId>
+			<artifactId>teemo-commons</artifactId>
+			<version>${teemo.version}</version>
+		</dependency>
+	</dependencies>
+</project>
