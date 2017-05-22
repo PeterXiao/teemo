@@ -34,16 +34,17 @@ public class ArgumentResolverComposite implements IArgumentResolver {
 	}
 
 	public ArgumentResolverComposite addResolvers(IArgumentResolver... resolvers) {
-		if (resolvers != null) {
-			for (IArgumentResolver resolver : resolvers) {
+		for (IArgumentResolver resolver : resolvers) {
+			if (resolver != null) {
 				mResolvers.add(resolver);
 			}
 		}
 		return this;
 	}
 
-	public void clearResolvers() {
+	public ArgumentResolverComposite clearResolvers() {
 		mResolvers.clear();
+		return this;
 	}
 
 	public void clearCache() {
