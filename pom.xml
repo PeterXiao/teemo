@@ -16,5 +16,6 @@
 	<modules>
 		<module>teemo-commons</module>
 		<module>teemo-dataprovider</module>
+		<module>teemo-finder</module>
 	</modules>
 </project>
