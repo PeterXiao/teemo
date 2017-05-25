@@ -34,12 +34,12 @@ public final class WebviewIndexSwitcher<D> extends AbstractWebviewSwitcher<D> {
 	private int getIndex(String cxt, List<String> cxts) {
 		String vNumStr = getContent(cxt);
 		int vNum = Integer.valueOf(vNumStr);
+		int vSize = cxts.size();
 		if (vNum < 0) {
-			int vSize = cxts.size();
 			vNum = vSize + vNum;
-			if (vNum < 0 && vNum >= vSize) {
-				throw new IllegalArgumentException("Index out of bound [0-" + vSize + "]");
-			}
+		}
+		if (vNum < 0 || vNum >= vSize) {
+			throw new IllegalArgumentException("Index out of bound [0-" + vSize + "]");
 		}
 		return vNum;
 	}

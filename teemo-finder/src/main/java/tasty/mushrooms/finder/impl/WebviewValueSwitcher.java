@@ -48,9 +48,10 @@ public class WebviewValueSwitcher<D> extends AbstractWebviewSwitcher<D> {
 			safeContextOrWindow(c);
 			vValue = getValue(mValueGetter);
 			if (vMethod.matches(vValue, vParam)) {
-				break;
+				return;
 			}
 		}
+		throw new IllegalStateException("No matched webview");
 	}
 
 	@Override
@@ -68,31 +69,31 @@ public class WebviewValueSwitcher<D> extends AbstractWebviewSwitcher<D> {
 	private enum ValueMatchMethod {
 		START {
 			@Override
-			public boolean matches(String url, String param) {
-				return url.startsWith(param);
+			public boolean matches(String value, String param) {
+				return value.startsWith(param);
 			}
 		},
 		END {
 			@Override
-			public boolean matches(String url, String param) {
-				return url.endsWith(param);
+			public boolean matches(String value, String param) {
+				return value.endsWith(param);
 			}
 		},
 		CONTAIN {
 			@Override
-			public boolean matches(String url, String param) {
-				return url.contains(param);
+			public boolean matches(String value, String param) {
+				return value.contains(param);
 			}
 		},
 		PATTERN {
 			@Override
-			public boolean matches(String url, String param) {
+			public boolean matches(String value, String param) {
 				Pattern p = Pattern.compile(param);
-				return p.matcher(url).matches();
+				return p.matcher(value).matches();
 			}
 		};
 
-		public abstract boolean matches(String url, String param);
+		public abstract boolean matches(String value, String param);
 
 		public static ValueMatchMethod fromString(String method) {
 			for (ValueMatchMethod m : ValueMatchMethod.values()) {

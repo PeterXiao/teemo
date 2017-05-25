@@ -15,7 +15,7 @@ import tasty.mushrooms.finder.IBasicContextSwitcher;
  */
 public abstract class AbstractWebviewSwitcher<D> implements IContextSwitcher {
 	private static final String WEBVIEW_PREFIX = "WEBVIEW_";
-	private static String mWebviewName;
+	private String mWebviewName;
 	protected IBasicContextSwitcher<D> mSwitcher;
 
 	public AbstractWebviewSwitcher(IBasicContextSwitcher<D> switcher) {
@@ -27,8 +27,18 @@ public abstract class AbstractWebviewSwitcher<D> implements IContextSwitcher {
 		return getPattern().matcher(context).matches();
 	}
 
+	/**
+	 * 获取正则，用于判断是否支持上下文表达式
+	 * 
+	 * @return
+	 */
 	protected abstract Pattern getPattern();
 
+	/**
+	 * 获取context列表或window列表
+	 * 
+	 * @return
+	 */
 	protected List<String> getWebivewContextsOrWindows() {
 		List<String> vRet;
 		if (mSwitcher.useWindow()) {
@@ -41,6 +51,11 @@ public abstract class AbstractWebviewSwitcher<D> implements IContextSwitcher {
 		return vRet;
 	}
 
+	/**
+	 * 切换context或window，若目标与当前相同则无动作
+	 * 
+	 * @param name
+	 */
 	protected void safeContextOrWindow(String name) {
 		name = Objects.requireNonNull(name, "Context name must not be null");
 		if (name.equals(mSwitcher.currentContextOrWindow())) {
@@ -55,8 +70,14 @@ public abstract class AbstractWebviewSwitcher<D> implements IContextSwitcher {
 		}
 	}
 
+	/**
+	 * 获取WEBVIEW[]表达式中括号内的内容
+	 * 
+	 * @param cxt
+	 * @return
+	 */
 	protected String getContent(String cxt) {
-		return cxt.substring(WEBVIEW_PREFIX.length(), cxt.length());
+		return cxt.substring(WEBVIEW_PREFIX.length(), cxt.length() - 1);
 	}
 
 	private void switchToWebview() {
@@ -72,7 +93,7 @@ public abstract class AbstractWebviewSwitcher<D> implements IContextSwitcher {
 			for (String c : vCxts) {
 				if (c.startsWith(WEBVIEW_PREFIX)) {
 					mWebviewName = c;
-					break;
+					return c;
 				}
 			}
 			throw new IllegalStateException("There is no webview");
